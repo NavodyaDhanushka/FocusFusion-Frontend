@@ -55,7 +55,7 @@ const SkillSharingFeed = () => {
     fetchPosts();
     setEditingPost(null);
   };
-
+//post Delete
   const handleDeletePost = async (postId) => {
     const post = posts.find((p) => p.id === postId);
 
