@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { useAuth } from "../context/auth";
-import toast from "react-hot-toast";
-import LearningPlanCard from "../components/LearningPlanCard";
-import EditLearningPlanModal from "../components/EditLearningPlanModal";
-import useConfirmModal from "../hooks/useConfirmModal";
-import ConfirmModal from "../components/ConfirmModal";
+import { motion } from "framer-motion"; // For animations
+import { useForm } from "react-hook-form"; // For form handling
+import { useAuth } from "../context/auth"; // For authentication context
+import toast from "react-hot-toast"; // For notifications
+import LearningPlanCard from "../components/LearningPlanCard"; // Component for displaying individual plans
+import EditLearningPlanModal from "../components/EditLearningPlanModal"; // Modal for editing plans
+import useConfirmModal from "../hooks/useConfirmModal"; // Custom hook for confirmation modal
+import ConfirmModal from "../components/ConfirmModal"; // Confirmation modal component
 import {
   createLearningPlan,
   getAllLearningPlans,
@@ -16,16 +16,22 @@ import {
   addComment,
   updateLearningPlanComment,
   deleteLearningPlanComment,
-} from "../api/learningPlanAPI";
+} from "../api/learningPlanAPI"; // API functions
 
 const LearningPlanPage = () => {
+  // Get current user from auth context
   const { currentUser } = useAuth();
+  
+  // State for storing learning plans and loading status
   const [learningPlans, setLearningPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingPlan, setEditingPlan] = useState(null);
+  
+  // Custom hook for confirmation modal
   const { modalState, openModal, closeModal } = useConfirmModal();
 
+  // Form handling using react-hook-form
   const {
     register,
     handleSubmit,
@@ -40,10 +46,12 @@ const LearningPlanPage = () => {
     },
   });
 
+  // Fetch learning plans when component mounts
   useEffect(() => {
     fetchLearningPlans();
   }, []);
 
+  // Function to fetch all learning plans
   const fetchLearningPlans = async () => {
     setLoading(true);
     try {
@@ -57,12 +65,14 @@ const LearningPlanPage = () => {
     }
   };
 
+  // Handle submission of new learning plan
   const handlePlanSubmit = async (data) => {
     if (!currentUser) {
       toast.error("You must be logged in to share a learning plan");
       return;
     }
 
+    // Validate required fields
     if (!data.title.trim() || !data.description.trim()) {
       toast.error("Title and description are required");
       return;
@@ -71,6 +81,7 @@ const LearningPlanPage = () => {
     setIsSubmitting(true);
 
     try {
+      // Prepare plan data with user information
       const planData = {
         userId: currentUser.id,
         userName: currentUser.name,
@@ -78,6 +89,7 @@ const LearningPlanPage = () => {
         ...data,
       };
 
+      // Create new learning plan via API
       const response = await createLearningPlan(
         currentUser.id,
         planData,
@@ -85,8 +97,9 @@ const LearningPlanPage = () => {
       );
 
       toast.success("Learning plan shared successfully");
+      // Add new plan to beginning of the list
       setLearningPlans([response.data, ...learningPlans]);
-      reset();
+      reset(); // Reset form fields
     } catch (error) {
       console.error("Error creating learning plan:", error);
       toast.error("Failed to share learning plan");
@@ -95,6 +108,7 @@ const LearningPlanPage = () => {
     }
   };
 
+  // Handle like/unlike functionality for a plan
   const handleLike = async (planId) => {
     if (!currentUser) {
       toast.error("You must be logged in to like this plan");
@@ -102,15 +116,16 @@ const LearningPlanPage = () => {
     }
 
     try {
+      // Check if user already liked the plan
       const isLiked = learningPlans
         .find((p) => p.id === planId)
         ?.likes?.some((like) => like.userId === currentUser.id);
 
       if (isLiked) {
-        // Unlike
+        // Unlike the plan
         await removeLike(planId, currentUser.id, currentUser.token);
 
-        // Update state
+        // Update state to remove the like
         setLearningPlans(
           learningPlans.map((plan) => {
             if (plan.id === planId) {
@@ -125,11 +140,11 @@ const LearningPlanPage = () => {
           })
         );
       } else {
-        // Like
+        // Like the plan
         const likeData = { userId: currentUser.id, userName: currentUser.name };
         const response = await addLike(planId, likeData, currentUser.token);
 
-        // Update state
+        // Update state with the new like
         setLearningPlans(
           learningPlans.map((plan) => {
             if (plan.id === planId) {
@@ -145,6 +160,7 @@ const LearningPlanPage = () => {
     }
   };
 
+  // Handle adding a comment to a plan
   const handleAddComment = async (planId, commentData) => {
     if (!currentUser) {
       toast.error("You must be logged in to comment");
@@ -154,7 +170,7 @@ const LearningPlanPage = () => {
     try {
       const response = await addComment(planId, commentData, currentUser.token);
 
-      // Update state
+      // Update state with the new comment
       setLearningPlans(
         learningPlans.map((plan) => {
           if (plan.id === planId) {
@@ -170,6 +186,7 @@ const LearningPlanPage = () => {
     }
   };
 
+  // Handle updating a comment (optimistic update)
   const handleUpdateComment = async (planId, commentId, updatedContent) => {
     setLearningPlans(
       learningPlans.map((plan) => {
@@ -193,6 +210,7 @@ const LearningPlanPage = () => {
     );
   };
 
+  // Handle deleting a comment (optimistic update)
   const handleDeleteComment = async (planId, commentId) => {
     setLearningPlans(
       learningPlans.map((plan) => {
@@ -209,15 +227,18 @@ const LearningPlanPage = () => {
     );
   };
 
+  // Set the plan to be edited in the modal
   const handleEdit = (plan) => {
     setEditingPlan(plan);
   };
 
+  // Handle successful plan update
   const handlePlanUpdated = async () => {
-    await fetchLearningPlans();
-    setEditingPlan(null);
+    await fetchLearningPlans(); // Refresh the list
+    setEditingPlan(null); // Close the modal
   };
 
+  // Handle plan deletion with confirmation modal
   const handleDelete = (planId) => {
     openModal({
       title: "Delete Learning Plan",
@@ -229,6 +250,7 @@ const LearningPlanPage = () => {
       onConfirm: async () => {
         try {
           await deleteLearningPlan(planId, currentUser.token);
+          // Remove the deleted plan from state
           setLearningPlans(learningPlans.filter((plan) => plan.id !== planId));
           toast.success("Learning plan deleted");
         } catch (error) {
@@ -258,6 +280,7 @@ const LearningPlanPage = () => {
           onSubmit={handleSubmit(handlePlanSubmit)}
           className="p-4 space-y-4"
         >
+          {/* Title input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Title*
@@ -278,6 +301,7 @@ const LearningPlanPage = () => {
             )}
           </div>
 
+          {/* Description input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Description*
@@ -300,6 +324,7 @@ const LearningPlanPage = () => {
             )}
           </div>
 
+          {/* Topics input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Topics (comma-separated)
@@ -316,6 +341,7 @@ const LearningPlanPage = () => {
             </p>
           </div>
 
+          {/* Resources input */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Resources (comma-separated)
@@ -332,6 +358,7 @@ const LearningPlanPage = () => {
             </p>
           </div>
 
+          {/* Submit button */}
           <div className="flex justify-end">
             <motion.button
               type="submit"
@@ -348,10 +375,12 @@ const LearningPlanPage = () => {
 
       {/* Learning Plans Feed */}
       {loading ? (
+        // Loading spinner
         <div className="flex justify-center items-center my-12">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         </div>
       ) : learningPlans.length === 0 ? (
+        // Empty state message
         <motion.div
           className="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl shadow-md border border-white border-opacity-30 p-8 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -366,6 +395,7 @@ const LearningPlanPage = () => {
           </p>
         </motion.div>
       ) : (
+        // List of learning plans
         <motion.div
           className="space-y-6"
           initial={{ opacity: 0 }}
@@ -395,7 +425,7 @@ const LearningPlanPage = () => {
         </motion.div>
       )}
 
-      {/* Edit Plan Modal */}
+      {/* Edit Plan Modal - shown when editingPlan state is set */}
       {editingPlan && (
         <EditLearningPlanModal
           plan={editingPlan}
@@ -405,7 +435,7 @@ const LearningPlanPage = () => {
         />
       )}
 
-      {/* Confirmation Modal */}
+      {/* Confirmation Modal - uses the custom hook state */}
       <ConfirmModal
         isOpen={modalState.isOpen}
         onClose={closeModal}
