@@ -206,7 +206,7 @@ const LearningProgressPage = () => {
           })
         );
       } else {
-        // Like
+    //Likes
         const likeData = { userId: currentUser.id };
         const response = await addLike(progressId, likeData, currentUser.token);
 
