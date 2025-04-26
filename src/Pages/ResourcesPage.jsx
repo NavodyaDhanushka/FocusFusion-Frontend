@@ -35,7 +35,7 @@ const ResourcesPage = () => {
         ? data.resources
         : [];
       setResources(list);
-      toast.success('Resources loaded successfully');
+      toast.success('Resources Loaded Successfully');
     } catch (err) {
       setError(err.message || 'Unknown error');
       toast.error('Failed to load resources');
@@ -53,7 +53,7 @@ const ResourcesPage = () => {
       toast.success('Resource created');
       setShowCreate(false); setNewTitle(''); setNewDescription(''); setNewUrl('');
     } catch {
-      toast.error('Failed to create resource');
+      toast.error('Failed to create');
     }
   };
 
@@ -73,7 +73,7 @@ const ResourcesPage = () => {
       toast.success('Resource updated');
       setEditingId(null);
     } catch {
-      toast.error('Failed to update resource');
+      toast.error('Failed to update');
     }
   };
 
