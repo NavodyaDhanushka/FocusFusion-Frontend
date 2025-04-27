@@ -369,7 +369,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/*right side - Workspace Image */}
+
       <div className="hidden md:block md:w-1/2">
         <div className="h-full w-full">
           <img
