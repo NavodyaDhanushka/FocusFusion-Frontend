@@ -117,7 +117,7 @@ const ResourcesPage = () => {
           <div className="mb-4"><label className="block text-sm mb-1">URL</label>
             <input type="url" value={newUrl} onChange={e => setNewUrl(e.target.value)} className="w-full border rounded px-3 py-2" required />
           </div>
-          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Create</button>
+          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Upload New Resource</button>
         </form>
       )}
 
@@ -171,7 +171,6 @@ const ResourcesPage = () => {
                         </button>
                       </div>
                     </div>
-
                   </div>
                 )}
               </div>
