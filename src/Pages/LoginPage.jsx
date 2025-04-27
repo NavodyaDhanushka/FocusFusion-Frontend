@@ -169,7 +169,7 @@ export default function LoginPage() {
               disabled={isSubmitting}
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md h-11 font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed disabled:bg-indigo-500"
             >
-              {isSubmitting ? "Signing in..." : "Sign in"}
+              {isSubmitting ? "Signing in..." : "Sign in to FocusFusion"}
             </button>
           </form>
 
