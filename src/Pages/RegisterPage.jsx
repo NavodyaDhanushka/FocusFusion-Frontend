@@ -53,7 +53,7 @@ export default function RegisterPage() {
         );
         if (response.data) {
           toast.success("Account created successfully");
-          // Auto login after registration
+
           const loginRes = await axios.post(
             `http://localhost:8080/api/auth/login`,
             { email: data.email, password: data.password }
@@ -84,10 +84,10 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex bg-white">
-      {/*left side - Registration Form */}
+
       <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-16">
         <div className="w-full max-w-md">
-          {/* logo */}
+
           <div className="mb-8">
             <svg
               width="40"
@@ -108,10 +108,10 @@ export default function RegisterPage() {
           </div>
 
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Create your account
+            Create your FocusFusion account
           </h1>
           <p className="text-gray-500 mb-8">
-            Already have an account?{" "}
+            Already have an FocusFusion account?{" "}
             <Link
               to="/login"
               className="text-indigo-600 hover:text-indigo-800 font-medium"
@@ -184,7 +184,7 @@ export default function RegisterPage() {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Email address
+                Email Address
               </label>
               <input
                 id="email"
@@ -244,7 +244,7 @@ export default function RegisterPage() {
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
               >
-                Confirm password
+                Confirm Password
               </label>
               <input
                 id="confirmPassword"
@@ -347,19 +347,19 @@ export default function RegisterPage() {
               </button>
 
               <button
-                type="button"
-                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                onClick={() => console.log("GitHub Sign-up")}
+                  type="button"
+                  className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                  onClick={() => alert("Under Developing...")}
               >
                 <svg
-                  className="h-5 w-5 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+                    className="h-5 w-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
                 >
                   <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
                   />
                 </svg>
                 GitHub

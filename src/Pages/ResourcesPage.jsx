@@ -117,7 +117,7 @@ const ResourcesPage = () => {
           <div className="mb-4"><label className="block text-sm mb-1">URL</label>
             <input type="url" value={newUrl} onChange={e => setNewUrl(e.target.value)} className="w-full border rounded px-3 py-2" required />
           </div>
-          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Create</button>
+          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Upload New Resource</button>
         </form>
       )}
 
@@ -148,10 +148,27 @@ const ResourcesPage = () => {
                       <p className="text-gray-700 mb-4">{resource.description}</p>
                     </div>
                     <div className="flex justify-between items-center">
-                      <a href={resource.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Visit</a>
+                      <a
+                          href={resource.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline font-medium"
+                      >
+                        Visit
+                      </a>
                       <div className="flex space-x-2">
-                        <button onClick={() => startEdit(resource)} className="text-yellow-500 hover:text-yellow-700 focus:outline-none">Edit</button>
-                        <button onClick={() => handleDelete(resource.id)} className="text-red-500 hover:text-red-700 focus:outline-none">Delete</button>
+                        <button
+                            onClick={() => startEdit(resource)}
+                            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+                        >
+                          Edit
+                        </button>
+                        <button
+                            onClick={() => handleDelete(resource.id)}
+                            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </div>
                   </div>
