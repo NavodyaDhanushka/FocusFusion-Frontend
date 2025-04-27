@@ -23,7 +23,7 @@ const EditPostModal = ({ post, onClose, onPostUpdated, token }) => {
     },
   });
 
-  // Determine existing media type and count
+  // Determine existing media type and count.
   const existingMediaCount = post?.mediaUrls?.length || 0;
   const existingMediaType = post?.mediaUrls?.some(
     (url) =>

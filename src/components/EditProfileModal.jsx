@@ -85,7 +85,7 @@ const EditProfileModal = ({ user, onClose, onProfileUpdated, token }) => {
         token
       );
 
-      toast.success("Profile updated successfully");
+      toast.success("Profile updated successfully!");
       onProfileUpdated(updatedProfile);
     } catch (error) {
       console.error("Error updating profile:", error);
