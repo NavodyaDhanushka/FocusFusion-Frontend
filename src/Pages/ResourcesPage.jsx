@@ -121,6 +121,7 @@ const ResourcesPage = () => {
         </form>
       )}
 
+
       {loading && <p className="text-gray-500">Loading resources...</p>}
       {error && <p className="text-red-600">Error: {error}</p>}
 
