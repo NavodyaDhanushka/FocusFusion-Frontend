@@ -7,30 +7,31 @@ import { useAuth } from "../context/auth/useAuth";
 const suggestedUsers = [
   {
     id: 1,
-    name: "Emma Wilson",
-    bio: "UI/UX Designer",
-    skills: ["Design", "Figma"],
+    name: "Anya Patel",
+    bio: "Landscape Photographer",
+    skills: ["Composition", "Lightroom"],
   },
   {
     id: 2,
-    name: "Michael Chen",
-    bio: "Full Stack Developer",
-    skills: ["React", "Node.js"],
+    name: "Liam Rodriguez",
+    bio: "Portrait Specialist",
+    skills: ["Portrait Lighting", "Photoshop"],
   },
   {
     id: 3,
-    name: "Sarah Johnson",
-    bio: "Data Scientist",
-    skills: ["Python", "ML"],
+    name: "Maya Lee",
+    bio: "Wildlife Photographer & Educator",
+    skills: ["DSLR Techniques", "Field Shooting"],
   },
 ];
 
 const trendingTopics = [
-  { id: 1, name: "React Hooks", count: 342 },
-  { id: 2, name: "CSS Grid", count: 275 },
-  { id: 3, name: "UX Design", count: 189 },
-  { id: 4, name: "Python", count: 156 },
+  { id: 1, name: "Golden Hour Photography", count: 428 },
+  { id: 2, name: "Manual Camera Settings", count: 317 },
+  { id: 3, name: "Street Photography", count: 289 },
+  { id: 4, name: "Photo Editing Tips", count: 241 },
 ];
+
 
 const MainLayout = ({ children, activeTab }) => {
   const [isLoaded, setIsLoaded] = useState(false);
