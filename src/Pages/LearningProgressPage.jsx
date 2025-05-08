@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
@@ -205,7 +206,7 @@ const LearningProgressPage = () => {
           })
         );
       } else {
-        // Like
+    //Likes
         const likeData = { userId: currentUser.id };
         const response = await addLike(progressId, likeData, currentUser.token);
 
